@@ -1,15 +1,9 @@
-import {
-  Avatar,
-  Button,
-  Card,
-  Grid2,
-  Typography,
-} from "@mui/material";
+import { Avatar, Button, Card, Grid2, Typography } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
 import { useForm } from "../../hooks/useForm";
 import { FormFields } from "../FormFields/FormFields";
 
-export const TaskForm = () => {
+export const TaskFormNew = () => {
   const { taskForm, handleChange, handleSubmit, handleLimpiar } = useForm();
 
   return (
@@ -36,8 +30,8 @@ export const TaskForm = () => {
             Nueva Tarea
           </Typography>
         </Grid2>
-        
-          <FormFields handleChange={handleChange} taskForm={taskForm}/>
+
+        <FormFields handleChange={handleChange} taskForm={taskForm} />
 
         <Grid2
           item

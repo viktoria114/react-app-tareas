@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-import SearchIcon from "@mui/icons-material/Search";
 import PriorityHighIcon from "@mui/icons-material/PriorityHigh";
 import LowPriorityIcon from "@mui/icons-material/LowPriority";
 import EmergencyIcon from "@mui/icons-material/Emergency";
@@ -16,10 +15,9 @@ import { NavLink } from "react-router-dom";
 
 export const MenuItemsAppBar = () => {
   const menuItems = [
-    { id: 1, icon: <SearchIcon />, text: "Buscar una tarea", path: "/search" },
-    { id: 2, icon: <AddTaskIcon />, text: "Agregar una tarea", path: "/add" },
+    { id: 1, icon: <AddTaskIcon />, text: "Agregar una tarea", path: "/add" },
     {
-      id: 3,
+      id: 2,
       icon: <AssignmentIcon />,
       text: "Listado de tareas",
       path: "/dashboard",
@@ -27,9 +25,21 @@ export const MenuItemsAppBar = () => {
   ];
 
   const menuPrioridad = [
-    { icon: <PriorityHighIcon />, text: "Alta" },
-    { icon: <EmergencyIcon />, text: "Media" },
-    { icon: <LowPriorityIcon />, text: "Baja" },
+    {
+      icon: <PriorityHighIcon />,
+      text: "Alta",
+      path: "/dashboard/prioridad/alta",
+    },
+    {
+      icon: <EmergencyIcon />,
+      text: "Media",
+      path: "/dashboard/prioridad/media",
+    },
+    {
+      icon: <LowPriorityIcon />,
+      text: "Baja",
+      path: "/dashboard/prioridad/baja",
+    },
   ];
 
   return (
@@ -37,7 +47,11 @@ export const MenuItemsAppBar = () => {
       <List>
         {menuItems.map(({ id, icon, text, path }) => (
           <>
-            <NavLink key={id} to={path} style={{ textDecoration: "none", color: "black" }}>
+            <NavLink
+              key={id}
+              to={path}
+              style={{ textDecoration: "none", color: "black" }}
+            >
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>{icon}</ListItemIcon>
@@ -51,13 +65,19 @@ export const MenuItemsAppBar = () => {
       <Divider />
       <List>
         <ListItem>Prioridades</ListItem>
-        {menuPrioridad.map((item, index) => (
-          <ListItem key={index} disablePadding>
-            <ListItemButton>
-              <ListItemIcon>{item.icon}</ListItemIcon>
-              <ListItemText primary={item.text} />
-            </ListItemButton>
-          </ListItem>
+        {menuPrioridad.map(({ icon, text, path }, index) => (
+          <NavLink
+            key={index}
+            to={path}
+            style={{ textDecoration: "none", color: "black" }}
+          >
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>{icon}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          </NavLink>
         ))}
       </List>
     </>

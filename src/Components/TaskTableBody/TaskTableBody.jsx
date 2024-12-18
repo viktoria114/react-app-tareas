@@ -10,9 +10,17 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
+import { GroupButtons } from "../GroupButtons/GroupButtons";
+import ModeEditIcon from "@mui/icons-material/ModeEdit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import BasicModal from "../DeleteModal/DeleteModal";
+import { useNavigate } from "react-router-dom";
 
 export const TaskTableBody = ({ tareas }) => {
   const [openRows, setOpenRows] = useState({});
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState(null);
+  const navigate = useNavigate();
 
   const toggleRow = (id) => {
     setOpenRows((prev) => ({
@@ -23,8 +31,36 @@ export const TaskTableBody = ({ tareas }) => {
 
   const handleEstado = () => {
     console.log("click on checkbox");
-    
-  }
+  };
+
+  const handleEditar = (tareaId) => {
+    navigate(`/edit/`); // Redirige a la página con el ID de la tarea
+  };
+
+  const handleOpenModal = (tarea) => {
+    setSelectedTask(tarea); // Asigna la tarea seleccionada
+    setModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setSelectedTask(null); // Limpia la tarea seleccionada al cerrar
+  };
+  const botones = [
+    {
+      id: 1,
+      color: "secondary",
+      label: <ModeEditIcon />,
+      handler: (tarea) => handleEditar(tarea._id),
+    },
+    {
+      id: 2,
+      color: "error",
+      label: <DeleteIcon />,
+      handler: (tarea) => handleOpenModal(tarea),
+    },
+  ];
+
   return (
     <TableBody>
       {tareas?.map((tarea) => (
@@ -34,8 +70,7 @@ export const TaskTableBody = ({ tareas }) => {
             onMouseOut={() => toggleRow(tarea._id)}
           >
             <TableCell>
-              <Checkbox checked={tarea?.completada}
-              onClick={handleEstado} />
+              <Checkbox checked={tarea?.completada} onClick={handleEstado} />
             </TableCell>
             <TableCell>{tarea.titulo}</TableCell>
             <TableCell>{tarea.materia}</TableCell>
@@ -55,9 +90,21 @@ export const TaskTableBody = ({ tareas }) => {
               />
             </TableCell>
             <TableCell>{tarea.etiquetas.join(" - ")}</TableCell>
+            <TableCell>
+              <GroupButtons
+                buttons={botones.map((button) => ({
+                  ...button,
+                  handler:
+                    button.id === 2
+                      ? () => button.handler(tarea) // Pasar tarea como argumento al botón borrar
+                      : button.handler,
+                }))}
+              />
+            </TableCell>
           </TableRow>
+
           <TableRow>
-            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+            <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
               <Collapse in={openRows[tarea._id]} timeout="auto" unmountOnExit>
                 <Box sx={{ margin: 1 }}>
                   <Typography
@@ -74,6 +121,13 @@ export const TaskTableBody = ({ tareas }) => {
           </TableRow>
         </React.Fragment>
       ))}
+      {selectedTask && (
+        <BasicModal
+          open={modalOpen}
+          handleClose={handleCloseModal}
+          tarea={selectedTask} // Pasar la tarea seleccionada como prop
+        />
+      )}
     </TableBody>
   );
 };

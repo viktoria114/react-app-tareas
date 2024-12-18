@@ -3,21 +3,21 @@ import MuiAppBar from "@mui/material/AppBar";
 
 export const drawerWidth = 240;
 
-export const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    marginLeft: open ? 0 : `-${drawerWidth}px`,
-    transition: theme.transitions.create("margin", {
-      easing: open
-        ? theme.transitions.easing.easeOut
-        : theme.transitions.easing.sharp,
-      duration: open
-        ? theme.transitions.duration.enteringScreen
-        : theme.transitions.duration.leavingScreen,
-    }),
-  })
-);
+export const Main = styled("main", {
+  shouldForwardProp: (prop) => prop !== "open",
+})(({ theme, open }) => ({
+  flexGrow: 1,
+  padding: theme.spacing(3),
+  marginLeft: open ? 0 : `-${drawerWidth}px`,
+  transition: theme.transitions.create("margin", {
+    easing: open
+      ? theme.transitions.easing.easeOut
+      : theme.transitions.easing.sharp,
+    duration: open
+      ? theme.transitions.duration.enteringScreen
+      : theme.transitions.duration.leavingScreen,
+  }),
+}));
 
 export const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",

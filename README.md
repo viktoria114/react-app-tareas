@@ -16,6 +16,7 @@ usuario: admin
 contraseña: admin
 
 El archivo .env se compone de:
+
 VITE_BASE_URL = https://api-tareas-vik-version4.vercel.app/api
 
 VITE_TAREAS = /tareas
@@ -24,17 +25,25 @@ VITE_COMPLETAR_TAREAS = /completar
 
 VITE_GET_TAREAS_PRIORIDAD = /prioridad/:nivel
 #
-#
-#
+
 La estructura general del codigo es:
+
 App.js
+
 |
+
 |- /                            Login
+
 |-                              <PersistentDrawerLeft>
+
 |- /dashboard                   dashboard
+
 |- /dashboard/prioridad/:nivel  TaskPriority
+
 |- /add                         AddTaskPage
+
 |- /edit/:id                    EditTaskPage
+
 |-                              </PersistentDrawerLeft>
 
 #

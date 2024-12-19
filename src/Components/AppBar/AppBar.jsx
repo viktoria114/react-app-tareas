@@ -70,6 +70,9 @@ export default function PersistentDrawerLeft() {
           open={open}
         >
           <DrawerHeader>
+            <Box p={"5px"} marginRight={"15%"}>
+            <img src="/creative-writing.png"></img>
+            </Box>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (
                 <ChevronLeftIcon />

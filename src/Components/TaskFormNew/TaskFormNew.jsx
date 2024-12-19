@@ -1,10 +1,30 @@
 import { Avatar, Button, Card, Grid2, Typography } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { useForm } from "../../hooks/useForm";
+import { useFormNew } from "../../hooks/useFormNew";
 import { FormFields } from "../FormFields/FormFields";
+import ToastNotification from "../ToastNotification/ToastNotification";
+import { useState } from "react";
 
 export const TaskFormNew = () => {
-  const { taskForm, handleChange, handleSubmit, handleLimpiar } = useForm();
+  const { taskForm, handleChange, handleSubmit, handleLimpiar } = useFormNew();
+  const [notification, setNotification] = useState({
+    open: false,
+    message: "",
+  });
+  
+
+  const handleAddTask = async () => {
+    await handleSubmit();
+    setNotification({
+      open: true,
+      message: "¡Tarea añadida correctamente!",
+      severity: "success"
+    });
+  };
+
+  const handleCloseNotification = () => {
+    setNotification({ ...notification, open: false });
+  };
 
   return (
     <Card style={{ maxWidth: "543px", width: "100%", alignSelf: "center" }}>
@@ -46,14 +66,21 @@ export const TaskFormNew = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={handleSubmit}
+            onClick={handleAddTask}
             disabled={!taskForm.titulo || !taskForm.materia}
           >
             Agregar
           </Button>
+          
           <Button variant="contained" color="secondary" onClick={handleLimpiar}>
             Limpiar
           </Button>
+          <ToastNotification
+          open={notification.open}
+          message={notification.message}
+          onClose={handleCloseNotification}
+          severity={notification.severity}
+        />
         </Grid2>
       </Grid2>
     </Card>

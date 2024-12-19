@@ -14,9 +14,9 @@ export const FormFields = ({ handleChange, taskForm }) => {
   return (
     <>
       <Grid2
-        item
-        xs={3}
+    
         sx={{
+          
           display: "flex",
           flexDirection: "row",
           gap: "12px",
@@ -25,8 +25,7 @@ export const FormFields = ({ handleChange, taskForm }) => {
       >
         <Grid2 item xs={3}>
           <TextField
-            sx={{ minWidth: "261px" }}
-            fullWidth
+          fullWidth
             variant="outlined"
             label="Titulo"
             name="titulo"
@@ -36,7 +35,7 @@ export const FormFields = ({ handleChange, taskForm }) => {
         </Grid2>
         <Grid2 item xs={3}>
           <TextField
-            fullWidth
+          fullWidth
             variant="outlined"
             label="Materia"
             name="materia"
@@ -56,7 +55,7 @@ export const FormFields = ({ handleChange, taskForm }) => {
         }}
       >
         <DateTimePicker
-          disablePast="true"
+          disablePast= {true}
           label="Fecha Límite"
           value={dayjs(taskForm.fechaLimite)}
           onChange={(e) =>
@@ -65,16 +64,17 @@ export const FormFields = ({ handleChange, taskForm }) => {
           name="fechaLimite"
         />
 
-        <Grid2>
-          <FormControl fullWidth>
-            <InputLabel>Prioridad</InputLabel>
+        <Grid2 >
+          <FormControl>
+            <InputLabel sx={{ minWidth: "200%" }} >Prioridad</InputLabel>
             <Select
               variant="outlined"
               value={taskForm.prioridad}
               name="prioridad"
               label="Prioridad"
               onChange={handleChange}
-              sx={{ minWidth: "227px" }}
+              sx={{ minWidth: "150%" }}
+              
             >
               <MenuItem value={"baja"}>baja</MenuItem>
               <MenuItem value={"media"}>media</MenuItem>
@@ -83,7 +83,7 @@ export const FormFields = ({ handleChange, taskForm }) => {
           </FormControl>
         </Grid2>
       </Grid2>
-      <Grid2 item xs={3} sx={{ maxWidth: "500px" }}>
+      <Grid2 item xs={3}>
         <TextField
           fullWidth
           variant="outlined"
@@ -93,7 +93,7 @@ export const FormFields = ({ handleChange, taskForm }) => {
           onChange={(e) => handleChange(e)}
         />
       </Grid2>
-      <Grid2 item xs={3} sx={{ maxWidth: "500px" }}>
+      <Grid2 item xs={3}>
         <TextField
           fullWidth
           variant="outlined"

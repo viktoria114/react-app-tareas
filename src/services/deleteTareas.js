@@ -1,14 +1,23 @@
 import axios from "axios";
+import { setTasks } from "../store/slices/TaskSlice/TaskSlice";
+import { getFilteredTasks } from "../services/getFilteredTasks";
+import { getTareas } from "../services/getTareas";
+import { baseURL, tareasURL } from "../App";
 
-export const daleteTareas = async (url) => {
+export const deleteTarea = async ({ tarea, dispatch, setLoading, setModalOpen }) => {
   try {
-    const response = await axios.delete(url, {
-        params: {
-            "675b609a8d68a32d8277d73c"
-          }
-    });
-    return response.data;
+    setLoading(true);
+    await axios.delete(`${baseURL}${tareasURL}/${tarea._id}`);
+
+    // Actualiza el estado global con las tareas filtradas y completas
+    dispatch(getFilteredTasks({ priority: tarea.prioridad }));
+    const tareasActualizadas = await getTareas(`${baseURL}${tareasURL}`);
+    dispatch(setTasks(tareasActualizadas));
+
+    setLoading(false);
+    setModalOpen(false);
   } catch (error) {
-    console.error(error);
+    console.error("Error al eliminar la tarea:", error);
+    setLoading(false);
   }
 };

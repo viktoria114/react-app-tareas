@@ -1,18 +1,20 @@
-import { Avatar, Button, Card, Grid2, Typography } from "@mui/material";
+import { Avatar, Button, Card, Grid2, LinearProgress, Typography } from "@mui/material";
 import ModeEditIcon from "@mui/icons-material/ModeEdit";
-import { useForm } from "../../hooks/useForm";
 import { FormFields } from "../FormFields/FormFields";
-import { useNavigate } from "react-router-dom";
+import { useFormEdit } from "../../services/useFormEdit";
+import { useParams } from "react-router-dom";
+import ToastNotification from "../ToastNotification/ToastNotification";
 
 export const TaskFormEdit = () => {
-  const { taskForm, handleChange, handleSubmit, handleLimpiar } = useForm();
-  const navigate = useNavigate();
+  const { id } = useParams(); // Capturamos el parámetro dinámico
+  const { taskForm, loading, handleChange, handleSubmit, handleRestaurar, handleCancelar, notification, handleCloseNotification} = useFormEdit(id);
 
-  const handleCancelar = () => {
-    navigate("/dashboard");
-  };
+if (loading) {
+    return <LinearProgress color="primary" />;
+  }
 
   return (
+    <>
     <Card style={{ maxWidth: "543px", width: "100%", alignSelf: "center" }}>
       <Grid2
         container
@@ -38,7 +40,7 @@ export const TaskFormEdit = () => {
         </Grid2>
 
         <FormFields handleChange={handleChange} taskForm={taskForm} />
-
+        
         <Grid2
           item
           xs={12}
@@ -57,12 +59,22 @@ export const TaskFormEdit = () => {
           >
             Guardar
           </Button>
-          <Button variant="contained" color="secondary" onClick={handleLimpiar}>
+          
+          <Button variant="contained" color="secondary" onClick={handleRestaurar}>
             Restaurar
           </Button>
           <Button onClick={handleCancelar}>Cancelar</Button>
+          
         </Grid2>
+        
       </Grid2>
     </Card>
+    <ToastNotification
+    open={notification.open}
+    message={notification.message}
+    onClose={handleCloseNotification}
+    severity={notification.severity}
+  />
+  </>
   );
 };

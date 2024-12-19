@@ -8,15 +8,20 @@ export const useGetTareas = (url, getData) => {
   const dispatch = useDispatch();
   const tareas = useSelector((state) => state.tasks.tasks);
 
-  const resolve = async () => {
-    const response = await getData(url);
-    dispatch(setTasks(response));
-    setLoading(false);
+  const fetchData = async () => {
+    try {
+      const response = await getData(url);
+      dispatch(setTasks(response)); // Actualiza Redux con las tareas
+    } catch (error) {
+      console.error("Error al obtener las tareas:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
-    resolve();
-  }, [url, getData]);
+    fetchData();
+  }, [url]); // Re-renderiza si la URL cambia
 
-  return { tareas, loading };
+  return { tareas, loading, refetch: fetchData };
 };

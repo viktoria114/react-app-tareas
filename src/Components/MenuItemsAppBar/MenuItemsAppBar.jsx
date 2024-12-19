@@ -15,13 +15,14 @@ import { NavLink } from "react-router-dom";
 
 export const MenuItemsAppBar = () => {
   const menuItems = [
-    { id: 1, icon: <AddTaskIcon />, text: "Agregar una tarea", path: "/add" },
     {
-      id: 2,
+      id: 1,
       icon: <AssignmentIcon />,
       text: "Listado de tareas",
       path: "/dashboard",
     },
+    { id: 2, icon: <AddTaskIcon />, text: "Agregar una tarea", path: "/add" },
+
   ];
 
   const menuPrioridad = [

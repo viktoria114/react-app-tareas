@@ -1,10 +1,9 @@
 import axios from "axios";
-import { baseURL, tareasURL } from "../App";
 
-export const postTareas = async (taskForm) => {
+export const putTareas = async (url,taskForm) => {
   try {
-    const response = await axios.post(
-      `${baseURL}${tareasURL}`,
+    const response = await axios.put(
+      url,
       {
         titulo: taskForm.titulo,
         materia: taskForm.materia,

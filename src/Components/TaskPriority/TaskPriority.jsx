@@ -5,9 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getFilteredTasks } from "../../services/getFilteredTasks";
 import { TaskTable } from "../TaskTable/TaskTable";
 import { Box, LinearProgress, ThemeProvider, Typography } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
 import { ActualTheme } from "../../services/theme";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 const TaskPriority = () => {
   const { nivel } = useParams(); // Capturamos el parámetro dinámico
@@ -29,6 +27,7 @@ const TaskPriority = () => {
     } else {
       // Si la prioridad es válida, obtener las tareas filtradas
       dispatch(getFilteredTasks({ priority: nivel }));
+      
     }
   }, [nivel, dispatch, navigate]);
 
@@ -37,10 +36,10 @@ const TaskPriority = () => {
   }
 
   if (error) {
-    return <Typography>Error!</Typography>;
+    return <Typography>No existen tareas con esta prioridad!</Typography>;
   }
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    
       <ThemeProvider theme={ActualTheme}>
         <Box
           sx={{
@@ -52,7 +51,7 @@ const TaskPriority = () => {
           <TaskTable tareas={tasks} />
         </Box>
       </ThemeProvider>
-    </LocalizationProvider>
+    
   );
 };
 

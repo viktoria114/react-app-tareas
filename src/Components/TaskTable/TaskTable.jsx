@@ -47,7 +47,7 @@ export const TaskTable = ({ tareas }) => {
                   sx={{ backgroundColor: ActualTheme.palette.primary.main }}
                 >
                   <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-                    <TableCell />
+                    <TableCell sx={{ color: "white" }}>Estado</TableCell>
 
                     <TableCell
                       component="th"

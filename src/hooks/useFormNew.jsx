@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { postTareas } from "../services/postTareas";
 
-export const useForm = () => {
+export const useFormNew = () => {
   const [taskForm, setTaskForm] = useState({
     titulo: "",
     materia: "",
@@ -28,6 +28,7 @@ export const useForm = () => {
       prioridad: "media",
       etiquetas: "",
     });
+    
   };
 
   const handleLimpiar = () => {

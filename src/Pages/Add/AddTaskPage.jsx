@@ -1,11 +1,8 @@
 import { Box } from "@mui/material";
 import { TaskFormNew } from "../../Components/TaskFormNew/TaskFormNew";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 export const AddTaskPage = () => {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Box
         sx={{
           display: "flex",
@@ -16,6 +13,5 @@ export const AddTaskPage = () => {
       >
         <TaskFormNew />
       </Box>
-    </LocalizationProvider>
   );
 };
